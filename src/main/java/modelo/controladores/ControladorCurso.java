@@ -1,8 +1,7 @@
 package modelo.controladores;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
 import javax.persistence.Query;
 
 import modelo.Curso;
@@ -11,6 +10,7 @@ public class ControladorCurso extends SuperControlador {
 
 	/**
 	 * Obtener el primer registro
+	 * 
 	 * @return
 	 */
 	public static Curso obtenerPrimero() {
@@ -19,6 +19,7 @@ public class ControladorCurso extends SuperControlador {
 
 	/**
 	 * Obtener el último registro
+	 * 
 	 * @return
 	 */
 	public static Curso obtenerUltimo() {
@@ -27,6 +28,7 @@ public class ControladorCurso extends SuperControlador {
 
 	/**
 	 * Obtener el registro siguiente
+	 * 
 	 * @param idActual
 	 * @return
 	 */
@@ -36,6 +38,7 @@ public class ControladorCurso extends SuperControlador {
 
 	/**
 	 * Obtener el registro anterior
+	 * 
 	 * @param idActual
 	 * @return
 	 */
@@ -56,55 +59,4 @@ public class ControladorCurso extends SuperControlador {
 		return c;
 	}
 
-	/**
-	 * Creación de un curso
-	 * @param c
-	 */
-	public static void creacionCurso(Curso c) {
-		EntityManager em = createEntityManager();
-
-
-		em.getTransaction().begin();
-		em.persist(c);
-		em.getTransaction().commit();
-
-		em.close();
-	}
-	
-	/**
-	 * Modificación de un curso
-	 * @param c
-	 */
-	public static void modificacionCurso(Curso c) {
-		EntityManager em = createEntityManager();
-
-
-		em.getTransaction().begin();
-
-		em.merge(c);
-
-		em.getTransaction().commit();
-
-		em.close();
-	}
-
-	
-	/**
-	 * Eliminación de un curso
-	 * @param c
-	 */
-	public void remove(Curso c) {
-		EntityManager em = createEntityManager();
-
-
-		
-		em.getTransaction().begin();
-		
-		if(!em.contains(c)) {
-			c = em.merge(c);
-		}
-		em.remove(c);
-		em.getTransaction().commit();
-		em.close();
-	}
 }
