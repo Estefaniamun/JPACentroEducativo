@@ -94,7 +94,7 @@ public class Vista_Curso extends JPanel {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				guardar();
+				guardar();
 			}
 		});
 		toolBar.add(btnGuardar);
@@ -210,14 +210,14 @@ public class Vista_Curso extends JPanel {
 //		try {
 //			if (eleccion == JOptionPane.YES_OPTION) {
 //				int idActual = devolverCurso().getId();
-//				controlador.eliminarCurso(idActual);
+//				controlador.remove(devolverCurso());
 //				JOptionPane.showMessageDialog(null, "¡La eliminación se ha realizado con éxito!");
-//				if (controlador.findAnteriorRegistro(idActual) != null) {
-//					mostrarCurso(controlador.findAnteriorRegistro(idActual));
+//				if (controlador.obtenerAnterior(idActual) != null) {
+//					mostrarCurso(controlador.obtenerAnterior(idActual));
 //					comprobarEstadoBotones();
 //				} else {
-//					if (controlador.findSiguienteRegistro(idActual) != null) {
-//						mostrarCurso(controlador.findSiguienteRegistro(idActual));
+//					if (controlador.obtenerSiguiente(idActual) != null) {
+//						mostrarCurso(controlador.obtenerSiguiente(idActual));
 //						comprobarEstadoBotones();
 //					} else {
 //						limpiarDatos();
