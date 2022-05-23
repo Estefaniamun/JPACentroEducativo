@@ -18,7 +18,7 @@ public class SuperControlador {
 	 * 
 	 * @param c
 	 */
-	public static void creacionCurso(Entidad c) {
+	public static void creacionEntidad(Entidad c) {
 		EntityManager em = createEntityManager();
 
 		em.getTransaction().begin();
@@ -33,7 +33,7 @@ public class SuperControlador {
 	 * 
 	 * @param c
 	 */
-	public static void modificacionCurso(Entidad c) {
+	public static void modificacionEntidad(Entidad c) {
 		EntityManager em = createEntityManager();
 
 		em.getTransaction().begin();

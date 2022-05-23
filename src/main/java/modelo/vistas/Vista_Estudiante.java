@@ -2,38 +2,35 @@ package modelo.vistas;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JToolBar;
 
-import modelo.controladores.ControladorCurso;
-import modelo.Curso;
+import modelo.Estudiante;
+import modelo.controladores.ControladorEstudiante;
 
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Vista_Curso extends JPanel {
-	private  JTextField jtfid;
-	private  JTextField jtfdesc;
-	private  JButton btnPrimerRegistro;
-	private  JButton btnAnteriorRegistro;
-	private  JButton btnSiguienteRegistro;
-	private  JButton btnUltimoRegistro;
-	ControladorCurso controlador = new ControladorCurso();
+public class Vista_Estudiante extends JPanel {
+
+	private PanelDatosPersonales panelEstudiante = new PanelDatosPersonales();
+	ControladorEstudiante controlador = new ControladorEstudiante();
+	private JButton btnPrimerRegistro;
+	private JButton btnAnteriorRegistro;
+	private JButton btnSiguienteRegistro;
+	private JButton btnUltimoRegistro;
 
 	/**
-	 * 
+	 * Create the panel.
 	 */
-	public Vista_Curso() {
+	public Vista_Estudiante() {
 		initialize();
-		mostrarCurso(controlador.obtenerPrimero());
+		mostrarEstudiante(controlador.obtenerPrimero());
 		comprobarEstadoBotones();
+
 	}
 
 	private void initialize() {
@@ -43,11 +40,12 @@ public class Vista_Curso extends JPanel {
 		add(toolBar, BorderLayout.NORTH);
 
 		btnPrimerRegistro = new JButton("<<");
-		btnPrimerRegistro.setToolTipText("Cargar el primer registro");
 		btnPrimerRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarCurso(controlador.obtenerPrimero());
+				panelEstudiante.limpiarColor();
+				mostrarEstudiante(controlador.obtenerPrimero());
 				comprobarEstadoBotones();
+
 			}
 		});
 		toolBar.add(btnPrimerRegistro);
@@ -55,28 +53,30 @@ public class Vista_Curso extends JPanel {
 		btnAnteriorRegistro = new JButton("<");
 		btnAnteriorRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarCurso(controlador.obtenerAnterior(devolverCurso().getId()));
+				panelEstudiante.limpiarColor();
+				mostrarEstudiante(controlador.obtenerAnterior(panelEstudiante.getID()));
 				comprobarEstadoBotones();
+
 			}
 		});
-		btnAnteriorRegistro.setToolTipText("Cargar el anterior registro");
 		toolBar.add(btnAnteriorRegistro);
 
 		btnSiguienteRegistro = new JButton(">");
 		btnSiguienteRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarCurso(controlador.obtenerSiguiente(devolverCurso().getId()));
+				panelEstudiante.limpiarColor();
+				mostrarEstudiante(controlador.obtenerSiguiente(panelEstudiante.getID()));
 				comprobarEstadoBotones();
+
 			}
 		});
-		btnSiguienteRegistro.setToolTipText("Cargar siguiente registro");
 		toolBar.add(btnSiguienteRegistro);
 
 		btnUltimoRegistro = new JButton(">>");
-		btnUltimoRegistro.setToolTipText("Cargar el ultimo registro");
 		btnUltimoRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarCurso(controlador.obtenerUltimo());
+				panelEstudiante.limpiarColor();
+				mostrarEstudiante(controlador.obtenerUltimo());
 				comprobarEstadoBotones();
 			}
 		});
@@ -86,7 +86,7 @@ public class Vista_Curso extends JPanel {
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarDatos();
-
+				comprobarEstadoBotones();
 			}
 		});
 		toolBar.add(btnNuevo);
@@ -107,91 +107,84 @@ public class Vista_Curso extends JPanel {
 		});
 		toolBar.add(btnEliminar);
 
-		JPanel panel = new JPanel();
-		add(panel, BorderLayout.CENTER);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 0, 0, 0, 0 };
-		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0 };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		panel.setLayout(gbl_panel);
+		add(panelEstudiante, BorderLayout.CENTER);
 
-		JLabel lblid = new JLabel("ID:");
-		GridBagConstraints gbc_lblid = new GridBagConstraints();
-		gbc_lblid.insets = new Insets(0, 0, 5, 5);
-		gbc_lblid.gridx = 2;
-		gbc_lblid.gridy = 1;
-		panel.add(lblid, gbc_lblid);
-
-		jtfid = new JTextField();
-		jtfid.setEnabled(false);
-		GridBagConstraints gbc_jtfid = new GridBagConstraints();
-		gbc_jtfid.insets = new Insets(0, 0, 5, 0);
-		gbc_jtfid.fill = GridBagConstraints.HORIZONTAL;
-		gbc_jtfid.gridx = 3;
-		gbc_jtfid.gridy = 1;
-		panel.add(jtfid, gbc_jtfid);
-		jtfid.setColumns(10);
-
-		JLabel lblDescrip = new JLabel("Descripción:");
-		GridBagConstraints gbc_lblDescrip = new GridBagConstraints();
-		gbc_lblDescrip.insets = new Insets(0, 0, 0, 5);
-		gbc_lblDescrip.gridx = 2;
-		gbc_lblDescrip.gridy = 2;
-		panel.add(lblDescrip, gbc_lblDescrip);
-
-		jtfdesc = new JTextField();
-		GridBagConstraints gbc_jtfdesc = new GridBagConstraints();
-		gbc_jtfdesc.fill = GridBagConstraints.HORIZONTAL;
-		gbc_jtfdesc.gridx = 3;
-		gbc_jtfdesc.gridy = 2;
-		panel.add(jtfdesc, gbc_jtfdesc);
-		jtfdesc.setColumns(10);
 	}
 
 	/**
-	 * Con este método mostramos en pantalla los datos de los cursos
 	 * 
-	 * @param curso
+	 * @param e
 	 */
-	public  void mostrarCurso(Curso curso) {
-		jtfid.setText("" + curso.getId());
-		jtfdesc.setText(curso.getDescripcion());
+	public void mostrarEstudiante(Estudiante e) {
+		panelEstudiante.setID(e.getId());
+		panelEstudiante.setNombre(e.getNombre());
+		panelEstudiante.setApellido1(e.getApellido1());
+		panelEstudiante.setApellido2(e.getApellido2());
+		panelEstudiante.setSexo(e.getTipologiaSexo());
+		;
+		panelEstudiante.setDNI(e.getDni());
+		panelEstudiante.setDireccion(e.getDireccion());
+		panelEstudiante.setEmail(e.getEmail());
+		panelEstudiante.setTelefono(e.getTelefono());
+		panelEstudiante.setImagen(e.getImagen());
+
+		if(e.getColorPreferido() != null) {
+			if (e.getColorPreferido().equalsIgnoreCase("")) {
+				panelEstudiante.setBackground(Color.WHITE);
+			} else {
+				panelEstudiante.setColor(e.getColorPreferido());
+			}
+		}
+		
+
 	}
 
 	/**
-	 * Con este método le insertamos al curso los datos que hay en los JTextField
 	 * 
-	 * @return
 	 */
-	public Curso devolverCurso() {
-		Curso curso = new Curso();
-		curso.setId(Integer.parseInt(jtfid.getText()));
-		curso.setDescripcion(jtfdesc.getText());
-		return curso;
+	public Estudiante devolverEstudiante() {
+		Estudiante e = new Estudiante();
+
+		e.setId(panelEstudiante.getID());
+		e.setNombre(panelEstudiante.getNombre());
+		e.setApellido1(panelEstudiante.getApellido1());
+		e.setApellido2(panelEstudiante.getApellido2());
+		e.setTipologiaSexo(panelEstudiante.getSexo());
+		e.setDni(panelEstudiante.getDNI());
+		e.setDireccion(panelEstudiante.getDireccion());
+		e.setEmail(panelEstudiante.getEmail());
+		e.setTelefono(panelEstudiante.getTelefono());
+		e.setImagen(panelEstudiante.getImagen());
+		e.setColorPreferido(panelEstudiante.getColor());
+
+		return e;
 	}
 
-	/**
-	 * Con este método limpiamos los JTextField para el botón de nuevo
-	 */
-	public  void limpiarDatos() {
-		jtfid.setText("0");
-		jtfdesc.setText("");
+	public void limpiarDatos() {
+		panelEstudiante.setID(0);
+		panelEstudiante.setNombre("");
+		panelEstudiante.setApellido1("");
+		panelEstudiante.setApellido2("");
+		panelEstudiante.setDNI("");
+		panelEstudiante.setDireccion("");
+		panelEstudiante.setEmail("");
+		panelEstudiante.setTelefono("");
 	}
 
 	/**
 	 * Con este método vamos a diferenciar si vamos a insertar uno nuevo o vamos a
 	 * modificar
 	 */
-	public  void guardar() {
-		if (Integer.parseInt(jtfid.getText()) == 0) {
-			controlador.creacionCurso(devolverCurso());
-			mostrarCurso(controlador.obtenerUltimo());
+	public void guardar() {
+
+		if (panelEstudiante.getID() == 0) {
+			controlador.creacionEntidad(devolverEstudiante());;
+			mostrarEstudiante(controlador.obtenerUltimo());
+			comprobarEstadoBotones();
 
 			JOptionPane.showMessageDialog(null, "La inserción se ha realizado con éxito");
-		} 
-		else {
-			controlador.modificacionCurso(devolverCurso());
+		} else {
+			controlador.modificacionEntidad(devolverEstudiante());
 
 			JOptionPane.showMessageDialog(null, "La modificación se ha realizado con éxito");
 		}
@@ -202,22 +195,22 @@ public class Vista_Curso extends JPanel {
 	 * Con este método vamos a eliminar y además vamos a comprobar si hay un
 	 * anterior, un siguiente o ninguno y con eso comprobamos también los botones
 	 */
-	public  void borrar() {
+	public void borrar() {
 		String[] opciones = { "Aceptar", "Cancelar" };
 		int eleccion = JOptionPane.showOptionDialog(null, "¿Desea eliminar el registro?", null,
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
 
 		try {
 			if (eleccion == JOptionPane.YES_OPTION) {
-				int idActual = devolverCurso().getId();
-				controlador.remove(devolverCurso());
+				int idActual = panelEstudiante.getID();
+				controlador.remove(devolverEstudiante());
 				JOptionPane.showMessageDialog(null, "¡La eliminación se ha realizado con éxito!");
 				if (controlador.obtenerAnterior(idActual) != null) {
-					mostrarCurso(controlador.obtenerAnterior(idActual));
+					mostrarEstudiante(controlador.obtenerAnterior(idActual));
 					comprobarEstadoBotones();
 				} else {
 					if (controlador.obtenerSiguiente(idActual) != null) {
-						mostrarCurso(controlador.obtenerSiguiente(idActual));
+						mostrarEstudiante(controlador.obtenerSiguiente(idActual));
 						comprobarEstadoBotones();
 					} else {
 						limpiarDatos();
@@ -239,9 +232,9 @@ public class Vista_Curso extends JPanel {
 	 * primer o último registro de la tabla Y si se está creando un nuevo registro
 	 * en la tabla se deshabilita todos los botones de dirección
 	 */
-	public  void comprobarEstadoBotones() {
+	public void comprobarEstadoBotones() {
 
-		if (Integer.parseInt(jtfid.getText()) == controlador.obtenerPrimero().getId()) {
+		if (panelEstudiante.getID() == controlador.obtenerPrimero().getId()) {
 			btnPrimerRegistro.setEnabled(false);
 			btnAnteriorRegistro.setEnabled(false);
 		} else {
@@ -249,7 +242,7 @@ public class Vista_Curso extends JPanel {
 			btnAnteriorRegistro.setEnabled(true);
 		}
 
-		if (Integer.parseInt(jtfid.getText()) == controlador.obtenerUltimo().getId()) {
+		if (panelEstudiante.getID() == controlador.obtenerUltimo().getId()) {
 			btnUltimoRegistro.setEnabled(false);
 			btnSiguienteRegistro.setEnabled(false);
 		} else {
@@ -258,7 +251,7 @@ public class Vista_Curso extends JPanel {
 
 		}
 
-		if (Integer.parseInt(jtfid.getText()) == 0) {
+		if (panelEstudiante.getID() == 0) {
 			btnPrimerRegistro.setEnabled(false);
 			btnAnteriorRegistro.setEnabled(false);
 			btnSiguienteRegistro.setEnabled(false);
@@ -266,5 +259,4 @@ public class Vista_Curso extends JPanel {
 		}
 
 	}
-
 }

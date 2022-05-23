@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @NamedQuery(name="Curso.findAll", query="SELECT c FROM Curso c")
 public class Curso extends Entidad implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -64,5 +65,8 @@ public class Curso extends Entidad implements Serializable {
 
 		return materia;
 	}
-
+	@Override
+	public String toString() {
+		return  descripcion;
+	}
 }
