@@ -1,5 +1,8 @@
 package modelo.controladores;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -51,11 +54,23 @@ public class ControladorTipologiaSexo extends SuperControlador {
 	private static TipologiaSexo obtencionDesdeSQL(String sql) {
 		EntityManager em = createEntityManager();
 
-		Query q = em.createNativeQuery(sql, Curso.class);
+		Query q = em.createNativeQuery(sql, TipologiaSexo.class);
 		TipologiaSexo tipo = (TipologiaSexo) q.getSingleResult();
 
 		em.close();
 		return tipo;
 	}
 
+	
+	public List<TipologiaSexo> findAll(){
+		List<TipologiaSexo> lista = new ArrayList<TipologiaSexo>();
+		EntityManager em = createEntityManager();
+
+		Query q = em.createNativeQuery("select * from tipologiasexo", TipologiaSexo.class);
+		lista.addAll((List<TipologiaSexo>) q.getResultList());
+	
+		em.close();
+		return lista;
+	}
+	
 }

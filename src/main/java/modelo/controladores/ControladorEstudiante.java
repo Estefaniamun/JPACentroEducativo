@@ -51,7 +51,7 @@ public class ControladorEstudiante extends SuperControlador {
 	private static Estudiante obtencionDesdeSQL(String sql) {
 		EntityManager em = createEntityManager();
 
-		Query q = em.createNativeQuery(sql, Curso.class);
+		Query q = em.createNativeQuery(sql, Estudiante.class);
 		Estudiante e = (Estudiante) q.getSingleResult();
 
 		em.close();

@@ -185,13 +185,13 @@ public class Vista_Curso extends JPanel {
 	 */
 	public  void guardar() {
 		if (Integer.parseInt(jtfid.getText()) == 0) {
-			controlador.creacionCurso(devolverCurso());
+			controlador.creacionEntidad(devolverCurso());
 			mostrarCurso(controlador.obtenerUltimo());
 
 			JOptionPane.showMessageDialog(null, "La inserción se ha realizado con éxito");
 		} 
 		else {
-			controlador.modificacionCurso(devolverCurso());
+			controlador.modificacionEntidad(devolverCurso());
 
 			JOptionPane.showMessageDialog(null, "La modificación se ha realizado con éxito");
 		}

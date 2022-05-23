@@ -1,10 +1,14 @@
 package modelo.controladores;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import javax.persistence.Query;
 
 import modelo.Curso;
+import modelo.TipologiaSexo;
 
 public class ControladorCurso extends SuperControlador {
 
@@ -57,6 +61,17 @@ public class ControladorCurso extends SuperControlador {
 
 		em.close();
 		return c;
+	}
+	
+	public List<Curso> findAll(){
+		List<Curso> lista = new ArrayList<Curso>();
+		EntityManager em = createEntityManager();
+
+		Query q = em.createNativeQuery("select * from curso", Curso.class);
+		lista.addAll((List<Curso>) q.getResultList());
+	
+		em.close();
+		return lista;
 	}
 
 }

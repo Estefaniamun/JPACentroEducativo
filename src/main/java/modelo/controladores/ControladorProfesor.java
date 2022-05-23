@@ -51,7 +51,7 @@ public class ControladorProfesor extends SuperControlador {
 	private static Profesor obtencionDesdeSQL(String sql) {
 		EntityManager em = createEntityManager();
 
-		Query q = em.createNativeQuery(sql, Curso.class);
+		Query q = em.createNativeQuery(sql, Profesor.class);
 		Profesor p = (Profesor) q.getSingleResult();
 
 		em.close();

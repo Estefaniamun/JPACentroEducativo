@@ -6,6 +6,7 @@ import javax.swing.JToolBar;
 
 import modelo.Curso;
 import modelo.Materia;
+import modelo.controladores.ControladorCurso;
 import modelo.controladores.ControladorMateria;
 
 import java.awt.GridBagLayout;
@@ -31,6 +32,7 @@ public class Vista_Materia extends JPanel {
 	private  JButton btnUltimoRegistro;
 	private  JComboBox<Curso> comboBoxCurso;
 	ControladorMateria controlador = new ControladorMateria();
+	private ControladorCurso curso = new ControladorCurso();
 	// Variable que actúa como Singleton
 	private static Vista_Materia instance = null;
 
@@ -199,7 +201,7 @@ public class Vista_Materia extends JPanel {
 	 * Con este método insertamos todos los cursos en el comboBox
 	 */
 	private void insertarValoresDeCursosEnElComboBox() {
-		List<Curso> lista = ControladorMateria.obtenerTodosLosCursos();
+		List<Curso> lista = curso.findAll();
 		for (int i = 0; i < lista.size(); i++) {
 			comboBoxCurso.addItem(lista.get(i));
 		}
@@ -208,14 +210,14 @@ public class Vista_Materia extends JPanel {
 	/**
 	 * Con este método seleccionamos el curso que coincida con el idCurso
 	 * 
-	 * @param idCurso
+	 * @param curso
 	 */
-	private  void seleccionarCursoEnComboBox(int idCurso) {
+	private  void seleccionarCursoEnComboBox(Curso curso) {
 		for (int i = 0; i < comboBoxCurso.getItemCount(); i++) {
-			if (comboBoxCurso.getItemAt(i).getId() == idCurso) {
+			if (comboBoxCurso.getItemAt(i).getId() == curso.getId()) {
 				comboBoxCurso.setSelectedIndex(i);
 			}
-		}
+		} 
 	}
 
 	/**
@@ -223,8 +225,8 @@ public class Vista_Materia extends JPanel {
 	 * 
 	 * @return
 	 */
-	private  int getIdCursoSeleccionadoEnComboBox() {
-		return ((Curso) comboBoxCurso.getSelectedItem()).getId();
+	private  Curso getIdCursoSeleccionadoEnComboBox() {
+		return ((Curso) comboBoxCurso.getSelectedItem());
 	}
 
 	/**

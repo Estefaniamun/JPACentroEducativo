@@ -3,7 +3,7 @@ package modelo.controladores;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import modelo.Curso;
+
 import modelo.Materia;
 
 public class ControladorMateria extends SuperControlador {
@@ -46,12 +46,12 @@ public class ControladorMateria extends SuperControlador {
 	}
 
 	/**
-	 * El findAll de la entidad Curso
+	 * El findAll de la entidad Materia
 	 */
 	private static Materia obtencionDesdeSQL(String sql) {
 		EntityManager em = createEntityManager();
 
-		Query q = em.createNativeQuery(sql, Curso.class);
+		Query q = em.createNativeQuery(sql, Materia.class);
 		Materia m = (Materia) q.getSingleResult();
 
 		em.close();

@@ -21,6 +21,7 @@ import javax.swing.filechooser.FileFilter;
 
 import modelo.TipologiaSexo;
 import modelo.controladores.ControladorEstudiante;
+import modelo.controladores.ControladorTipologiaSexo;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -54,6 +55,7 @@ public class PanelDatosPersonales extends JPanel {
 	private JTextField jtfColor;
 	private JButton btnCambiarColor;
 	private JColorChooser jColorChooser;
+	private ControladorTipologiaSexo sexo = new ControladorTipologiaSexo();
 
 	/**
 	 * Create the panel.
@@ -530,7 +532,7 @@ public class PanelDatosPersonales extends JPanel {
 	 * El método para cargar los valores de tipologiaSexo
 	 */
 	public void cargarValores() {
-		List<TipologiaSexo> lista = ControladorEstudiante.obtenerTodosLosSexos();
+		List<TipologiaSexo> lista = sexo.findAll();
 		for (int i = 0; i < lista.size(); i++) {
 			comboBoxSexo.addItem(lista.get(i));
 		}
@@ -538,13 +540,13 @@ public class PanelDatosPersonales extends JPanel {
 
 	/**
 	 * 
-	 * @param idSexo
+	 * @param tipologiaSexo
 	 */
-	public void setSexo(int idSexo) {
+	public void setSexo(TipologiaSexo tipologiaSexo) {
 		for (int i = 0; i < comboBoxSexo.getItemCount(); i++) {
-			if (comboBoxSexo.getItemAt(i).getId() == idSexo) {
+			if (comboBoxSexo.getItemAt(i).getId() == tipologiaSexo.getId()) {
 				comboBoxSexo.setSelectedIndex(i);
-			}
+			} 
 		}
 	}
 
@@ -552,8 +554,8 @@ public class PanelDatosPersonales extends JPanel {
 	 * 
 	 * @return
 	 */
-	public int getSexo() {
-		return ((TipologiaSexo) this.comboBoxSexo.getSelectedItem()).getId();
+	public TipologiaSexo getSexo() {
+		return ((TipologiaSexo) this.comboBoxSexo.getSelectedItem());
 	}
 
 	/**

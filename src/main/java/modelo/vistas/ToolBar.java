@@ -19,7 +19,7 @@ public class ToolBar extends JToolBar {
 		this.add(crearMateria());
 		this.add(crearEstudiante());
 		this.add(crearProfesor());
-		this.add(crearValoracionMateria());
+//		this.add(crearValoracionMateria());
 	}
 
 	/**
@@ -110,22 +110,22 @@ public class ToolBar extends JToolBar {
 
 		return jbtProfesor;
 	}
-	/**
-	 * Con este método creamos el botón de valoración materias con su Action Performed
-	 * @return
-	 */
-	private JButton crearValoracionMateria() {
-		JButton jbtCurso = creaBoton("Valoración Materias");
-		jbtCurso.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				VistaUtils.mostrarPanelEnDialogo(new Vista_ValoraciónMateria(), "Valoración Materias");
-
-			}
-		});
-
-		return jbtCurso;
-	}
+//	/**
+//	 * Con este método creamos el botón de valoración materias con su Action Performed
+//	 * @return
+//	 */
+//	private JButton crearValoracionMateria() {
+//		JButton jbtCurso = creaBoton("Valoración Materias");
+//		jbtCurso.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//
+//				VistaUtils.mostrarPanelEnDialogo(new Vista_ValoraciónMateria(), "Valoración Materias");
+//
+//			}
+//		});
+//
+//		return jbtCurso;
+//	}
 }
