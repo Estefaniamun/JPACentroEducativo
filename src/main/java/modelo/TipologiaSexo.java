@@ -91,4 +91,11 @@ public class TipologiaSexo extends Entidad implements Serializable {
 		return profesore;
 	}
 
+	@Override
+	public String toString() {
+		return descripcion;
+	}
+	
+	
+
 }

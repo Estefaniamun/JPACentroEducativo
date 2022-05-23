@@ -32,7 +32,7 @@ public class ControladorEstudiante extends SuperControlador {
 	 * @return
 	 */
 	public static Estudiante obtenerSiguiente(int idActual) {
-		return obtencionDesdeSQL("SELECT * FROM estudiante where id > " + idActual + " order by id desc limit 1 ");
+		return obtencionDesdeSQL("SELECT * FROM estudiante where id > " + idActual + " order by id  limit 1 ");
 	}
 
 	/**
