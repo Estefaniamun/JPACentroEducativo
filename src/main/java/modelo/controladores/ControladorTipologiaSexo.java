@@ -49,7 +49,7 @@ public class ControladorTipologiaSexo extends SuperControlador {
 	}
 
 	/**
-	 * El findAll de la entidad Curso
+	 * El findAll de la entidad TipologiaSexo
 	 */
 	private static TipologiaSexo obtencionDesdeSQL(String sql) {
 		EntityManager em = createEntityManager();

@@ -46,7 +46,7 @@ public class ControladorEstudiante extends SuperControlador {
 	}
 
 	/**
-	 * El findAll de la entidad Curso
+	 * El findAll de la entidad Estudiante
 	 */
 	private static Estudiante obtencionDesdeSQL(String sql) {
 		EntityManager em = createEntityManager();
